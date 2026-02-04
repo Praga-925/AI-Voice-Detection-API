@@ -1,6 +1,6 @@
 # 🎤 AI Voice Detection API
 
-A REST API that detects whether a voice sample is **AI-generated** or **human**. Built for the GUVI HCL Hackathon.
+A REST API that detects whether a voice sample is **AI-generated** or **human**. Built for the GUVI HCL Buildathon.
 
 ---
 
