@@ -77,7 +77,7 @@ for file in tqdm(human_files):
 X = np.array(X)
 y = np.array(y)
 
-print(f"\n📊 Dataset Summary:")
+print(f"\nDataset Summary:")
 print(f"   Total samples: {len(X)}")
 print(f"   AI samples: {sum(y == 1)}")
 print(f"   Human samples: {sum(y == 0)}")
@@ -93,11 +93,11 @@ X_train, X_test, y_train, y_test = train_test_split(
     X_scaled, y, test_size=0.2, random_state=42, stratify=y
 )
 
-print(f"\n📈 Training set: {len(X_train)} samples")
-print(f"📈 Test set: {len(X_test)} samples")
+print(f"Training set: {len(X_train)} samples")
+print(f"Test set: {len(X_test)} samples")
 
 # Train model with better parameters
-print("\n🚀 Training Enhanced Random Forest Model...")
+print("\nTraining Enhanced Random Forest Model...")
 model = RandomForestClassifier(
     n_estimators=300,      # More trees
     max_depth=20,          # Limit depth to prevent overfitting
@@ -113,9 +113,9 @@ y_pred = model.predict(X_test)
 acc = accuracy_score(y_test, y_pred)
 
 print(f"\n{'=' * 60}")
-print(f"📊 Model Performance")
+print(f"Model Performance")
 print(f"{'=' * 60}")
-print(f"✅ Accuracy: {acc * 100:.2f}%")
+print(f"Accuracy: {acc * 100:.2f}%")
 print(f"\n📋 Classification Report:")
 print(classification_report(y_test, y_pred, target_names=['Human', 'AI']))
 
@@ -126,7 +126,7 @@ print(f"\n💾 Model saved as 'model_enhanced.pkl'")
 print(f"💾 Scaler saved as 'scaler.pkl'")
 
 # Feature importance
-print(f"\n🎯 Top 10 Most Important Features:")
+print(f"\nTop 10 Most Important Features:")
 feature_names = (
     [f'mfcc_mean_{i}' for i in range(20)] +
     [f'mfcc_std_{i}' for i in range(20)] +
@@ -139,5 +139,5 @@ for i, idx in enumerate(indices):
     print(f"   {i+1}. {feature_names[idx]}: {importances[idx]:.4f}")
 
 print(f"\n{'=' * 60}")
-print("✅ Training Complete!")
+print("Training Complete!")
 print(f"{'=' * 60}")

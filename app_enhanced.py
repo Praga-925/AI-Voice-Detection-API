@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException, Header
 from pydantic import BaseModel
 
 # ================= CONFIG =================
-API_KEY = "sk_test_123456789"   # change if needed
+API_KEY = os.getenv("API_KEY", "sk_test_123456789")
 CONFIDENCE_THRESHOLD = 0.60
 # =========================================
 

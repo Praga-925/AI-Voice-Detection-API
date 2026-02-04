@@ -7,10 +7,10 @@ def analyze_audio(file_path):
     """Analyze audio file properties"""
     
     if not os.path.exists(file_path):
-        print(f"❌ File not found: {file_path}")
+        print(f"File not found: {file_path}")
         return
     
-    print(f"\n📊 Audio Analysis: {file_path}")
+    print(f"\nAudio Analysis: {file_path}")
     print("=" * 50)
     
     try:
@@ -23,16 +23,16 @@ def analyze_audio(file_path):
         # Get properties
         print(f"⏱️  Duration: {duration:.2f} seconds")
         print(f"🎵 Sample Rate: {sr} Hz")
-        print(f"📈 Samples: {len(y)}")
+        print(f"Samples: {len(y)}")
         print(f"🔊 Max Amplitude: {np.max(np.abs(y)):.4f}")
         print(f"🔇 Min Amplitude: {np.min(np.abs(y)):.6f}")
-        print(f"📊 Mean Amplitude: {np.mean(np.abs(y)):.4f}")
+        print(f"Mean Amplitude: {np.mean(np.abs(y)):.4f}")
         
         # Check if audio is too quiet or too loud
         if np.max(np.abs(y)) < 0.1:
-            print("\n⚠️  Warning: Audio seems very quiet!")
+            print("\nWarning: Audio seems very quiet!")
         elif np.max(np.abs(y)) > 0.99:
-            print("\n⚠️  Warning: Audio may be clipping (too loud)!")
+            print("\nWarning: Audio may be clipping (too loud)!")
         
         # Recommended sample rate
         if sr != 16000:
@@ -44,11 +44,11 @@ def analyze_audio(file_path):
         mfcc = librosa.feature.mfcc(y=y_16k, sr=16000, n_mfcc=13)
         mfcc_mean = np.mean(mfcc.T, axis=0)
         
-        print(f"\n🎯 MFCC Features (what model sees):")
+        print(f"\nMFCC Features (what model sees):")
         print(f"   {mfcc_mean.round(2)}")
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

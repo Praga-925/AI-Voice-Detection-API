@@ -11,7 +11,7 @@ API_KEY = "sk_test_123456789"
 
 def test_audio(file_path):
     if not os.path.exists(file_path):
-        print(f"❌ Error: File not found: {file_path}")
+        print(f"Error: File not found: {file_path}")
         return
 
     print(f"\n🎵 Testing Audio File: {file_path}")
@@ -48,20 +48,20 @@ def test_audio(file_path):
             else:
                 print(f"👤 Classification : {classification}")
 
-            print(f"📊 Confidence     : {confidence}")
+            print(f"Confidence     : {confidence}")
             print(f"🧠 Explanation   : {explanation}")
 
         else:
-            print("❌ API returned an error")
+            print("API returned an error")
             print(response.text)
 
     except requests.exceptions.ConnectionError:
-        print("❌ Cannot connect to API")
+        print("Cannot connect to API")
         print("👉 Make sure the server is running:")
         print("   uvicorn app_enhanced:app --reload")
 
     except Exception as e:
-        print(f"❌ Unexpected error: {e}")
+        print(f"Unexpected error: {e}")
 
 
 def main():
