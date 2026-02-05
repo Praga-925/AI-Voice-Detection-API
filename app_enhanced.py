@@ -12,15 +12,22 @@ API_KEY = os.getenv("API_KEY", "sk_test_123456789")
 CONFIDENCE_THRESHOLD = 0.60
 # =========================================
 
-# Load model
-if os.path.exists("model_enhanced.pkl") and os.path.exists("scaler.pkl"):
-    print("Loading enhanced model...")
-    model = joblib.load("model_enhanced.pkl")
-    scaler = joblib.load("scaler.pkl")
-else:
-    raise RuntimeError("Enhanced model or scaler not found!")
-
 app = FastAPI(title="AI Voice Detection API")
+
+# --------- GLOBAL MODEL HANDLES (LAZY LOAD) ----------
+model = None
+scaler = None
+
+def load_model():
+    """
+    Load model and scaler only once (lazy loading).
+    Prevents Render cold-start timeout.
+    """
+    global model, scaler
+    if model is None or scaler is None:
+        print("Loading enhanced model...")
+        model = joblib.load("model_enhanced.pkl")
+        scaler = joblib.load("scaler.pkl")
 
 # ---------- Request Schema ----------
 class VoiceRequest(BaseModel):
@@ -31,7 +38,6 @@ class VoiceRequest(BaseModel):
 # ---------- Feature Extraction ----------
 def extract_features(audio_bytes):
     y, sr = librosa.load(io.BytesIO(audio_bytes), sr=16000)
-
     y = librosa.util.normalize(y)
 
     mfcc = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=20)
@@ -61,6 +67,9 @@ def voice_detection(
     data: VoiceRequest,
     x_api_key: str = Header(None)
 ):
+    # ✅ Load model on first request
+    load_model()
+
     # 🔐 API Key check
     if x_api_key != API_KEY:
         raise HTTPException(

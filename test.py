@@ -4,7 +4,7 @@ import sys
 import os
 
 API_URL = "https://ai-voice-detection-api-9rr7.onrender.com/api/voice-detection"
-API_KEY = "sk_test_123456789"
+API_KEY = "sk_test_123456789"  # Replace with your real Render API key
 
 
 def test_audio(mp3_file):
